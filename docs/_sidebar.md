@@ -1,0 +1,16 @@
+- **应用架构**
+  - [介绍](/architecture/guide.md)
+- **核心框架**
+  - [基础组件](/core-framework/common.md)
+  - [Banner 组件](/core-framework/starter-banner.md)
+  - [任务调度组件](/core-framework/starter-job.md)
+  - [消息队列组件](/core-framework/starter-mq.md)
+  - [Redis 组件](/core-framework/starter-redis.md)
+  - [Swagger 组件](/core-framework/starter-swagger.md)
+- **代码规范**
+  - [命名规范](/norm/naming.md)
+  - [代码规范](/norm/coding.md)
+  - [日志规范](/norm/log.md)
+  - [异常规范](/norm/error.md)
+- **CQRS**
+  - [CQRS](/cqrs/cqrs.md)
