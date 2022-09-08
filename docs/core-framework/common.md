@@ -1,14 +1,15 @@
+# 基础组件
+主要是常用的工具类使用说明，其中也依赖了 [hutool](https://hutool.cn/docs/#/)，除了 hutool 之外还有实体转换工具、全局异常处理等等，后面也会慢慢补充。
+
 ## 数据模型转换
 
-现在微服务架构和DDD领域设计模型思想的指导下，我们的应用和应用之间，模块和模块之前会有很多的数据模型，同一个工程下也会分数据传输层、领域对象层、持久化层等，当这些对象需要相互转换时，如果还手写 Get、Set 方法，开发人员可能会崩溃。
+现在微服务架构和 DDD 领域设计模型思想的指导下，我们的应用和应用之间，模块和模块之前会有很多的数据模型，同一个工程下也会分数据传输层、领域对象层、持久化层等，当这些对象需要相互转换时，如果还手写 Get、Set 方法，开发人员可能会崩溃。
 
 这里我们引入 [MapStruct](https://mapstruct.org/) 框架来处理这些重复的工作量，MapStruct 是一个代码生成器，它基于约定高于配置的方法，大大简化了 Java Bean 类型之间的映射的实现。
 
 在核心框架中提供了三个转换器接口，在项目中根据实际的需求来实现对应的接口。
 
-#### IConvertor
-
-IConvertor提供数据传输对象（C）、领域对象（E）、数据库对象（D）之间互相转换的能力，包括支持对象集合的转换
+1、IConvertor 提供数据传输对象（C）、领域对象（E）、数据库对象（D）之间互相转换的能力，包括支持对象集合的转换
 
 <details>
 <summary>点我查看代码</summary>
@@ -101,9 +102,7 @@ List<E> doList2EntityList(List<D> dList);
 
 </details>
 
-#### IDtoConvertor
-
-IDtoConvertor提供数据传输对象（C）、领域对象（E）的转换，包括支持对象集合的转换
+2、IDtoConvertor 提供数据传输对象（C）、领域对象（E）的转换，包括支持对象集合的转换
 
 <details>
 <summary>点我查看代码</summary>
@@ -140,9 +139,7 @@ List<C> entityList2CoList(List<E> eList);
 
 </details>
 
-#### IEntityConvertor
-
-IEntityConvertor提供领域对象（E）、持久化对象（D）的转换，包括支持对象集合的转换
+3、IEntityConvertor 提供领域对象（E）、持久化对象（D）的转换，包括支持对象集合的转换
 
 <details>
 <summary>点我查看代码</summary>
@@ -256,7 +253,7 @@ userProfileDoConvertor.entity2Do(userProfile);
 
 #### 使用方法
 
-在应用架构的 Adapter 层创建一个异常处理类 `DemoExceptionHandler` （命名自定义），同时需要继承 `GlobalExceptionHandler` 类，创建构造函数传递应用名称，记得加上注解：`@RestControllerAdvice`
+在应用架构的 **Adapter** 层创建一个异常处理类 `DemoExceptionHandler` （命名自定义），同时需要继承 `GlobalExceptionHandler` 类，创建构造函数传递应用名称，记得加上注解：`@RestControllerAdvice`
 
 ```java
 @RestControllerAdvice
@@ -268,4 +265,10 @@ public class DemoExceptionHandler extends GlobalExceptionHandler {
 }
 ```
 
-?> 传递appName是为了在异常日志中输出当前应用系统的名称，方便后续的定位和分析
+?> 传递 appName 是为了在异常日志中输出当前应用系统的名称，方便后续的定位和分析
+
+## 工具类
+
+#### DruidUtil
+
+Druid 数据源数据库密码加密工具类
