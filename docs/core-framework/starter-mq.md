@@ -21,6 +21,7 @@ outputs 相当于生产者 producer，与Spring Cloud Stream 中的 Binder 交�
 1、在工程的 **Adapter** 模块添加依赖
 
 ```xml
+<!-- mcoding 自定义消息队列组件 starter -->
 <dependency>
     <groupId>cn.mcoding</groupId>
     <artifactId>mcoding-spring-boot-starter-mq</artifactId>
@@ -74,8 +75,8 @@ spring:
           producer-out-0:
             producer:
               group: output_1
-              # 发送信息超时的毫秒数
-              sendMessageTimeout: 10000
+              # 发送信息超时的毫秒数，默认：3000毫秒
+              sendMessageTimeout: 3000
 ```
 
 3、编写代码
@@ -219,8 +220,8 @@ spring:
           producer-out-0:
             producer:
               group: output_1
-              # 发送信息超时的毫秒数
-              sendMessageTimeout: 10000
+              # 发送信息超时的毫秒数，默认：3000毫秒
+              sendMessageTimeout: 3000
 ```
 
-?> _TODO_ 这里 sendMessageTimeout 的配置项需要展开说明
+?> 如果发送消息时报：sendDefaultImpl call timeout 的错误，可以试试修改 sendMessageTimeout 参数，默认超时时间为3秒，可以考虑适当加长

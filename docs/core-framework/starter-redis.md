@@ -1,22 +1,40 @@
-## Redis 工具类
+# Redis 组件
 
-该工具类封装了常用的 Redis 操作方法
+自定义 Redis 组件除了封装 RedisTemplate 提供常用操作方法外，还启用了 Spring Boot Cache （基于Redis） 
 
-#### 使用方法
+## 使用方法
 
-在应用架构中对应的模块添加依赖
+1、在工程中对应的模块添加依赖
 
 ```xml
-
+<!-- mcoding 自定义Redis组件 starter -->
+<dependency>
+    <groupId>cn.mcoding</groupId>
+    <artifactId>mcoding-spring-boot-starter-redis</artifactId>
+</dependency>
 ```
 
-在 application 配置文件增加 Redis 相关配置（Redisson 相关配置待测试）
+2、在工程的 **Start** 模块增加配置内容， 配置文件在 `resources/application.yml`
 
+```yaml
+spring:
+  # Redis 相关配置
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+  # Spring Boot Cache 配置项 - 基于 Redis
+  cache:
+    type: REDIS
+    redis:
+      cache-null-values: false
+      # 设置过期时间为 1 小时
+      time-to-live: 1h
 ```
-spring.redis.host=127.0.0.1
-spring.redis.port=6379
-spring.redis.database=0
-```
+
+!> 这里的配置项为两个部分，一个是 Redis 的配置，一个是启用 Spring Boot Cache 的配置
+
+## Redis 工具类的使用
 
 注入 RedisService Bean，调用对应的函数
 
@@ -87,26 +105,6 @@ public Response execute() {
 
 ## 基于 Redis 实现的 Cache 配置类
 
-mcoding-spring-boot-starter-redis 除了封装常用的Redis操作函数外，还启用了 Spring Boot Cache （基于Redis）
-
-#### 使用方式
-
-在应用架构中对应的模块添加依赖
-
-```xml
-
-```
-
-在 application 配置文件增加缓存的配置项，缓存过期时间可以根据项目实际情况做调整
-
-```
-# Cache 配置项
-spring.cache.type=redis
-spring.cache.redis.cache-null-values=false
-# 设置过期时间为 1 小时
-spring.cache.redis.time-to-live=1h
-```
-
 设置缓存，在方法上增加 `@Cacheable` 注解
 
 ```java
@@ -123,8 +121,6 @@ public SingleResponse<UserProfileCO> execute(UserProfileGetQry qry) {
 }
 ```
 
-!> 设置缓存之后，如果数据有更新或删除动作，请注意及时更新缓存
-
 移除缓存，在方法上增加 `@CacheEvict` 注解
 
 ```java
@@ -134,3 +130,5 @@ public Response execute(UserProfileUpdateCmd cmd) {
     return Response.buildSuccess();
 }
 ```
+
+!> 设置缓存之后，如果数据有更新或删除动作，要注意在 update or delete 方法上增加移除缓存的注解，并且要保证缓存的 key 一致

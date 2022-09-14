@@ -10,6 +10,7 @@
 |_| |_| |_|\___\___/ \__,_|_|_| |_|\__, |
                                    |___/
 Spring Boot Version: 2.6.3
+Spring Application Name: demo
 ```
 
 ## 使用方法
@@ -17,7 +18,7 @@ Spring Boot Version: 2.6.3
 在工程的 Start 模块添加依赖
 
 ```xml
-<!-- mcoding自定义starter -->
+<!-- mcoding 自定义 Banner 组件 starter -->
 <dependency>
     <groupId>cn.mcoding</groupId>
     <artifactId>mcoding-spring-boot-starter-banner</artifactId>

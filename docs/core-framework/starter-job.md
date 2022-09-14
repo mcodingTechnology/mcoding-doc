@@ -7,6 +7,7 @@
 1、在工程的 **Adapter** 模块添加依赖
 
 ```xml
+<!-- mcoding 自定义任务调度组件 starter -->
 <dependency>
     <groupId>cn.mcoding</groupId>
     <artifactId>mcoding-spring-boot-starter-job</artifactId>
